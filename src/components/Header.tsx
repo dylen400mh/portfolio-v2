@@ -6,6 +6,7 @@ const Header: React.FC = () => {
 
   const handleScroll = (sectionId: string) => {
     const element = document.getElementById(sectionId);
+    const element = document.getElementById(sectionId);
     if (element) element.scrollIntoView({ behavior: "smooth" });
   };
 
@@ -14,6 +15,7 @@ const Header: React.FC = () => {
   };
 
   return (
+    <header className="bg-transparent text-black sticky top-0 z-10">
     <header className="bg-transparent text-black sticky top-0 z-10">
       <div className="container mx-auto flex justify-between items-center p-4">
         {/* Logo */}
@@ -53,8 +55,10 @@ const Header: React.FC = () => {
 
         {/* Desktop Menu */}
         <nav className="hidden md:flex space-x-8 text-lg font-semibold">
+        <nav className="hidden md:flex space-x-8 text-lg font-semibold">
           <button
             onClick={() => handleScroll("home")}
+            className="hover:bg-gray-200 px-3 py-2 rounded transition-colors duration-300"
             className="hover:bg-gray-200 px-3 py-2 rounded transition-colors duration-300"
           >
             Home
@@ -62,11 +66,13 @@ const Header: React.FC = () => {
           <button
             onClick={() => handleScroll("about")}
             className="hover:bg-gray-200 px-3 py-2 rounded transition-colors duration-300"
+            className="hover:bg-gray-200 px-3 py-2 rounded transition-colors duration-300"
           >
             About
           </button>
           <button
             onClick={() => handleScroll("projects")}
+            className="hover:bg-gray-200 px-3 py-2 rounded transition-colors duration-300"
             className="hover:bg-gray-200 px-3 py-2 rounded transition-colors duration-300"
           >
             Projects
@@ -74,9 +80,14 @@ const Header: React.FC = () => {
           <button
             onClick={() => handleScroll("contact")}
             className="hover:bg-gray-200 px-3 py-2 rounded transition-colors duration-300"
+            className="hover:bg-gray-200 px-3 py-2 rounded transition-colors duration-300"
           >
             Contact
           </button>
+          <Link
+            to="/blog"
+            className="hover:bg-gray-200 px-3 py-2 rounded transition-colors duration-300"
+          >
           <Link
             to="/blog"
             className="hover:bg-gray-200 px-3 py-2 rounded transition-colors duration-300"
@@ -149,6 +160,7 @@ const Header: React.FC = () => {
             </li>
           </ul>
         </nav>
+      </div>
       </div>
     </header>
   );
