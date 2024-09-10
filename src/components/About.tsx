@@ -1,3 +1,26 @@
+const technologies = [
+  { icon: "devicon-javascript-plain colored", label: "JavaScript" },
+  {
+    icon: "devicon-typescript-original colored",
+    label: "TypeScript",
+  },
+  { icon: "devicon-react-original colored", label: "React" },
+  { icon: "devicon-nodejs-plain colored", label: "Node.js" },
+  { icon: "devicon-express-original colored", label: "Express.js" },
+  { icon: "devicon-tailwindcss-plain colored", label: "Tailwind" },
+  { icon: "devicon-postgresql-plain colored", label: "SQL" },
+  { icon: "devicon-python-plain colored", label: "Python" },
+  { icon: "devicon-java-plain colored", label: "Java" },
+  { icon: "devicon-css3-plain colored", label: "CSS" },
+  { icon: "devicon-html5-plain colored", label: "HTML" },
+  { icon: "devicon-git-plain colored", label: "Git" },
+  { icon: "devicon-csharp-plain colored", label: "C#" },
+  { icon: "devicon-flask-original", label: "Flask" },
+  { icon: "devicon-jest-plain colored", label: "Jest" },
+  { icon: "devicon-npm-original-wordmark colored", label: "NPM" },
+  { icon: "devicon-webpack-plain colored", label: "Webpack" },
+];
+
 const About = () => {
   return (
     <section
@@ -24,28 +47,7 @@ const About = () => {
 
         {/* Technologies Grid */}
         <div className="grid grid-cols-2 sm:grid-cols-3 gap-6 text-center">
-          {[
-            { icon: "devicon-javascript-plain colored", label: "JavaScript" },
-            {
-              icon: "devicon-typescript-original colored",
-              label: "TypeScript",
-            },
-            { icon: "devicon-react-original colored", label: "React" },
-            { icon: "devicon-nodejs-plain colored", label: "Node.js" },
-            { icon: "devicon-express-original colored", label: "Express.js" },
-            { icon: "devicon-tailwindcss-plain colored", label: "Tailwind" },
-            { icon: "devicon-postgresql-plain colored", label: "SQL" },
-            { icon: "devicon-python-plain colored", label: "Python" },
-            { icon: "devicon-java-plain colored", label: "Java" },
-            { icon: "devicon-css3-plain colored", label: "CSS" },
-            { icon: "devicon-html5-plain colored", label: "HTML" },
-            { icon: "devicon-git-plain colored", label: "Git" },
-            { icon: "devicon-csharp-plain colored", label: "C#" },
-            { icon: "devicon-flask-original", label: "Flask" },
-            { icon: "devicon-jest-plain colored", label: "Jest" },
-            { icon: "devicon-npm-original-wordmark colored", label: "NPM" },
-            { icon: "devicon-webpack-plain colored", label: "Webpack" },
-          ].map((tech, index) => (
+          {technologies.map((tech, index) => (
             <div className="flex flex-col items-center" key={index}>
               <i className={`${tech.icon} text-4xl mb-2`}></i>
               <span className="text-gray-300">{tech.label}</span>
