@@ -12,19 +12,20 @@ const Blog = () => {
     const fetchPosts = async () => {
       try {
         const response = await fetch(
-          "https://dylenbelangerblog.up.railway.app/api/posts/published",
+          `${process.env.REACT_APP_BASE_URL}/posts/published`,
           {
             headers: {
               "Content-Type": "application/json",
             },
           }
         );
-
+    
         if (!response.ok) {
           throw new Error(`Error ${response.status}: Failed to fetch posts`);
         }
-
+        
         const data = await response.json();
+        
         setPosts(data.posts || []);
         setError("");
       } catch (err: any) {
@@ -54,7 +55,7 @@ const Blog = () => {
             {posts.map((post) => (
               <Link
                 key={post.id}
-                to={`/blog/${post.title}`}
+                to={`/blog/${post.id}`}
                 state={post}
                 className="block p-6 bg-gray-800 rounded-lg shadow-lg hover:bg-gray-700 transition-all duration-300"
               >
