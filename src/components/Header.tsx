@@ -1,12 +1,22 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate, useLocation } from "react-router-dom";
 
 const Header: React.FC = () => {
   const [isOpen, setIsOpen] = useState<boolean>(false);
+  const navigate = useNavigate();
+  const location = useLocation();
 
   const handleScroll = (sectionId: string) => {
     const element = document.getElementById(sectionId);
     if (element) element.scrollIntoView({ behavior: "smooth" });
+  };
+
+  const handleNavigation = (sectionId: string) => {
+    if (location.pathname !== "/") {
+      navigate("/", { state: { sectionId } });
+    } else {
+      handleScroll(sectionId);
+    }
   };
 
   const toggleMenu = () => {
@@ -51,25 +61,25 @@ const Header: React.FC = () => {
         {/* Desktop Menu */}
         <nav className="hidden md:flex space-x-8 text-lg font-semibold">
           <button
-            onClick={() => handleScroll("home")}
+            onClick={() => handleNavigation("home")}
             className="hover:bg-gray-600 px-3 py-2 rounded transition-colors duration-300"
           >
             Home
           </button>
           <button
-            onClick={() => handleScroll("about")}
+            onClick={() => handleNavigation("about")}
             className="hover:bg-gray-600 px-3 py-2 rounded transition-colors duration-300"
           >
             About
           </button>
           <button
-            onClick={() => handleScroll("projects")}
+            onClick={() => handleNavigation("projects")}
             className="hover:bg-gray-600 px-3 py-2 rounded transition-colors duration-300"
           >
             Projects
           </button>
           <button
-            onClick={() => handleScroll("contact")}
+            onClick={() => handleNavigation("contact")}
             className="hover:bg-gray-600 px-3 py-2 rounded transition-colors duration-300"
           >
             Contact
@@ -94,7 +104,7 @@ const Header: React.FC = () => {
             <li>
               <button
                 onClick={() => {
-                  handleScroll("home");
+                  handleNavigation("home");
                   toggleMenu();
                 }}
                 className="hover:bg-gray-600 px-3 py-2 rounded transition-colors duration-300"
@@ -105,7 +115,7 @@ const Header: React.FC = () => {
             <li>
               <button
                 onClick={() => {
-                  handleScroll("about");
+                  handleNavigation("about");
                   toggleMenu();
                 }}
                 className="hover:bg-gray-600 px-3 py-2 rounded transition-colors duration-300"
@@ -116,7 +126,7 @@ const Header: React.FC = () => {
             <li>
               <button
                 onClick={() => {
-                  handleScroll("projects");
+                  handleNavigation("projects");
                   toggleMenu();
                 }}
                 className="hover:bg-gray-600 px-3 py-2 rounded transition-colors duration-300"
@@ -127,7 +137,7 @@ const Header: React.FC = () => {
             <li>
               <button
                 onClick={() => {
-                  handleScroll("contact");
+                  handleNavigation("contact");
                   toggleMenu();
                 }}
                 className="hover:bg-gray-600 px-3 py-2 rounded transition-colors duration-300"
