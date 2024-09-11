@@ -6,6 +6,7 @@ import reportWebVitals from "./reportWebVitals";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import Blog from "./components/Blog";
 import BlogPost from "./components/BlogPost";
+import RegisterForm from "./components/RegisterForm";
 
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement
@@ -23,6 +24,10 @@ const router = createBrowserRouter([
   {
     path: "/blog/:id",
     element: <BlogPost />,
+  },
+  {
+    path: "/register",
+    element: <RegisterForm />,
   },
 ]);
 
