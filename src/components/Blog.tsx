@@ -43,9 +43,9 @@ const Blog = () => {
   }, []);
 
   return (
-    <div className="min-h-screen bg-[#1a1a1a] text-white ">
+    <div className="min-h-screen bg-[#1a1a1a] text-white">
       <Header />
-      <div className="max-w-7xl mx-auto py-12 px-6">
+      <div className=" max-w-7xl mx-auto py-12 px-6">
         {user && (
           <h2 className="text-2xl font-semibold mb-4">Hi, {user.username}</h2>
         )}

@@ -101,10 +101,9 @@ const BlogPost: React.FC = () => {
   }, [id]);
 
   return (
-    <div>
+    <div className="min-h-screen bg-[#1a1a1a] text-white">
       <Header />
-
-      <div className="min-h-screen bg-[#1a1a1a] text-white py-12 px-6">
+      <div className=" py-12 px-6">
         <Link
           to="/blog"
           className="inline-block mb-6 px-6 py-3 bg-blue-600 text-white font-bold rounded-lg hover:bg-blue-500 transition-colors duration-300"
