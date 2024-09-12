@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import Header from "./Header";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useAuth } from "../contexts/AuthContext";
 
 interface LoginFormData {
@@ -96,6 +96,17 @@ const LoginForm: React.FC = () => {
             {isSubmitting ? "Logging In..." : "Login"}
           </button>
         </form>
+        <div className="mt-6 text-center">
+          <p className="text-gray-400">
+            Don't have an account?{" "}
+            <Link
+              to="/register"
+              className="text-blue-500 hover:text-blue-400 underline"
+            >
+              Register here
+            </Link>
+          </p>
+        </div>
       </div>
     </div>
   );
