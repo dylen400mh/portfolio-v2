@@ -4,6 +4,7 @@ import { Post } from "../types/Post";
 import { Comment } from "../types/Comment";
 import { User } from "../types/User";
 import Header from "./Header";
+import { useAuth } from "../contexts/AuthContext";
 
 const BlogPost: React.FC = () => {
   const [post, setPost] = useState<Post | undefined>(undefined);
@@ -13,8 +14,10 @@ const BlogPost: React.FC = () => {
   const [loadingPost, setLoadingPost] = useState<boolean>(true);
   const [loadingComments, setLoadingComments] = useState<boolean>(true);
   const { id } = useParams();
+  const { validateToken } = useAuth();
 
   useEffect(() => {
+    validateToken();
     const fetchPostAndComments = async () => {
       try {
         const postResponse = fetch(

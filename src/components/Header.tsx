@@ -1,10 +1,12 @@
 import React, { useState } from "react";
 import { Link, useNavigate, useLocation } from "react-router-dom";
+import { useAuth } from "../contexts/AuthContext";
 
 const Header: React.FC = () => {
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const navigate = useNavigate();
   const location = useLocation();
+  const { isAuthenticated, handleLogout } = useAuth();
 
   const handleScroll = (sectionId: string) => {
     const element = document.getElementById(sectionId);
@@ -90,6 +92,21 @@ const Header: React.FC = () => {
           >
             Blog
           </Link>
+          {isAuthenticated ? (
+            <button
+              onClick={handleLogout}
+              className="bg-blue-600 hover:bg-blue-500 px-3 py-2 rounded transition-colors duration-300"
+            >
+              Logout
+            </button>
+          ) : (
+            <Link
+              to="/login"
+              className="bg-blue-600 hover:bg-blue-500 px-3 py-2 rounded transition-colors duration-300"
+            >
+              Login
+            </Link>
+          )}
         </nav>
       </div>
 
@@ -153,6 +170,23 @@ const Header: React.FC = () => {
               >
                 Blog
               </Link>
+            </li>
+            <li>
+              {isAuthenticated ? (
+                <button
+                  onClick={handleLogout}
+                  className="hover:bg-gray-600 px-3 py-2 rounded transition-colors duration-300"
+                >
+                  Logout
+                </button>
+              ) : (
+                <Link
+                  to="/login"
+                  className="hover:bg-gray-600 px-3 py-2 rounded transition-colors duration-300"
+                >
+                  Login
+                </Link>
+              )}
             </li>
           </ul>
         </nav>

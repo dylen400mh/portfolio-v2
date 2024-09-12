@@ -2,13 +2,16 @@ import { useEffect, useState } from "react";
 import { Post } from "../types/Post";
 import { Link } from "react-router-dom";
 import Header from "./Header";
+import { useAuth } from "../contexts/AuthContext";
 
 const Blog = () => {
   const [error, setError] = useState<string>("");
   const [posts, setPosts] = useState<Post[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
+  const { validateToken } = useAuth();
 
   useEffect(() => {
+    validateToken();
     const fetchPosts = async () => {
       try {
         const response = await fetch(
@@ -19,13 +22,13 @@ const Blog = () => {
             },
           }
         );
-    
+
         if (!response.ok) {
           throw new Error(`Error ${response.status}: Failed to fetch posts`);
         }
-        
+
         const data = await response.json();
-        
+
         setPosts(data.posts || []);
         setError("");
       } catch (err: any) {
