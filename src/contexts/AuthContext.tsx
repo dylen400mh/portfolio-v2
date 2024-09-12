@@ -1,11 +1,13 @@
 import React, { useState, createContext, useContext, useCallback } from "react";
 import { isTokenExpired } from "../util/isTokenExpired";
+import { User } from "../types/User";
 
 interface AuthContextProps {
   isAuthenticated: boolean;
   handleLogin: () => void;
   handleLogout: () => void;
   validateToken: () => string | null;
+  user: User | undefined;
 }
 
 const AuthContext = createContext<AuthContextProps | undefined>(undefined);
@@ -14,14 +16,33 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
   children,
 }) => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [user, setUser] = useState<User | undefined>(undefined);
 
-  const handleLogin = useCallback(() => {
+  const handleLogin = useCallback(async () => {
     setIsAuthenticated(true);
+    try {
+      const response = await fetch(
+        `${process.env.REACT_APP_BASE_URL}/current-user`,
+        {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
+
+      if (response.ok) {
+        const data = await response.json();
+        setUser(data.user);
+      }
+    } catch (err) {
+      return;
+    }
   }, []);
 
   const handleLogout = useCallback(() => {
     localStorage.removeItem("token");
     setIsAuthenticated(false);
+    setUser(undefined);
   }, []);
 
   const validateToken = useCallback((): string | null => {
@@ -37,7 +58,13 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
 
   return (
     <AuthContext.Provider
-      value={{ isAuthenticated, handleLogin, handleLogout, validateToken }}
+      value={{
+        isAuthenticated,
+        handleLogin,
+        handleLogout,
+        validateToken,
+        user,
+      }}
     >
       {children}
     </AuthContext.Provider>
