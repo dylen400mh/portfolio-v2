@@ -26,6 +26,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
         {
           headers: {
             "Content-Type": "application/json",
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
           },
         }
       );
@@ -33,9 +34,11 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
       if (response.ok) {
         const data = await response.json();
         setUser(data.user);
+      } else {
+        setUser(undefined);
       }
     } catch (err) {
-      return;
+      setUser(undefined);
     }
   }, []);
 
@@ -55,7 +58,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
       return token;
     }
   }, [handleLogin, handleLogout]);
-
+  console.log(user);
   return (
     <AuthContext.Provider
       value={{
