@@ -6,6 +6,7 @@ import Projects from "./components/Projects";
 import Contact from "./components/Contact";
 import { useLocation } from "react-router-dom";
 import { useAuth } from "./contexts/AuthContext";
+import Footer from "./components/Footer";
 
 function App() {
   const location = useLocation();
@@ -28,6 +29,7 @@ function App() {
       <About />
       <Projects />
       <Contact />
+      <Footer />
     </div>
   );
 }

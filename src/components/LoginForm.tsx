@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import Header from "./Header";
 import { Link, useNavigate } from "react-router-dom";
 import { useAuth } from "../contexts/AuthContext";
+import Footer from "./Footer";
 
 interface LoginFormData {
   email: string;
@@ -108,6 +109,7 @@ const LoginForm: React.FC = () => {
           </p>
         </div>
       </div>
+      <Footer />
     </div>
   );
 };

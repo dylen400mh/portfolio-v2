@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import Header from "./Header";
 import { useNavigate } from "react-router-dom";
+import Footer from "./Footer";
 
 interface RegisterFormData {
   username: string;
@@ -130,6 +131,7 @@ const RegisterForm: React.FC = () => {
           </button>
         </form>
       </div>
+      <Footer />
     </div>
   );
 };

@@ -6,6 +6,7 @@ import { User } from "../types/User";
 import Header from "./Header";
 import { useAuth } from "../contexts/AuthContext";
 import CommentForm from "./CommentForm";
+import Footer from "./Footer";
 
 const BlogPost: React.FC = () => {
   const [post, setPost] = useState<Post | undefined>(undefined);
@@ -183,6 +184,7 @@ const BlogPost: React.FC = () => {
           <p className="text-center">Post not found</p>
         )}
       </div>
+      <Footer />
     </div>
   );
 };

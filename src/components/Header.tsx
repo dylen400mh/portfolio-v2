@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { Link, useNavigate, useLocation } from "react-router-dom";
 import { useAuth } from "../contexts/AuthContext";
 
+const sections = ["Home", "About", "Projects", "Contact"];
 const Header: React.FC = () => {
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const navigate = useNavigate();
@@ -62,30 +63,23 @@ const Header: React.FC = () => {
 
         {/* Desktop Menu */}
         <nav className="hidden md:flex space-x-8 text-lg font-semibold">
-          <button
-            onClick={() => handleNavigation("home")}
+          {sections.map((section) => (
+            <button
+              key={section}
+              onClick={() => handleNavigation(section.toLowerCase())}
+              className="hover:bg-gray-600 px-3 py-2 rounded transition-colors duration-300"
+            >
+              {section}
+            </button>
+          ))}
+          <a
+            href="https://drive.google.com/file/d/1BfkkxCWK0AzbCUvmVUR03EX8twmsXF8R/view?usp=sharing"
+            target="_blank"
+            rel="noreferrer"
             className="hover:bg-gray-600 px-3 py-2 rounded transition-colors duration-300"
           >
-            Home
-          </button>
-          <button
-            onClick={() => handleNavigation("about")}
-            className="hover:bg-gray-600 px-3 py-2 rounded transition-colors duration-300"
-          >
-            About
-          </button>
-          <button
-            onClick={() => handleNavigation("projects")}
-            className="hover:bg-gray-600 px-3 py-2 rounded transition-colors duration-300"
-          >
-            Projects
-          </button>
-          <button
-            onClick={() => handleNavigation("contact")}
-            className="hover:bg-gray-600 px-3 py-2 rounded transition-colors duration-300"
-          >
-            Contact
-          </button>
+            Resume
+          </a>
           <Link
             to="/blog"
             className="hover:bg-gray-600 px-3 py-2 rounded transition-colors duration-300"
@@ -113,79 +107,59 @@ const Header: React.FC = () => {
       {/* Mobile Menu with Dropdown Animation */}
       <div
         className={`md:hidden overflow-hidden transition-all duration-500 ease-in-out ${
-          isOpen ? "max-h-96 opacity-100" : "max-h-0 opacity-0"
+          isOpen ? "max-h-screen opacity-100" : "max-h-0 opacity-0"
         }`}
       >
         <nav className="bg-[#1a1a1a] shadow-lg">
           <ul className="flex flex-col items-center space-y-4 p-4 text-lg">
-            <li>
-              <button
-                onClick={() => {
-                  handleNavigation("home");
-                  toggleMenu();
-                }}
-                className="hover:bg-gray-600 px-3 py-2 rounded transition-colors duration-300"
-              >
-                Home
+            {sections.map((section) => (
+              <li key={section} className="w-full">
+                <button
+                  onClick={() => {
+                    handleNavigation(section.toLowerCase());
+                    toggleMenu();
+                  }}
+                  className="w-full hover:bg-gray-600 px-3 py-2 rounded transition-colors duration-300 text-center"
+                >
+                  {section}
+                </button>
+              </li>
+            ))}
+            <li className="w-full">
+              <button className="w-full hover:bg-gray-600 px-3 py-2 rounded transition-colors duration-300 text-center">
+                <a
+                  href="https://drive.google.com/file/d/1BfkkxCWK0AzbCUvmVUR03EX8twmsXF8R/view?usp=sharing"
+                  target="_blank"
+                  rel="noreferrer"
+                >
+                  Resume
+                </a>
               </button>
             </li>
-            <li>
-              <button
-                onClick={() => {
-                  handleNavigation("about");
-                  toggleMenu();
-                }}
-                className="hover:bg-gray-600 px-3 py-2 rounded transition-colors duration-300"
-              >
-                About
+            <li className="w-full">
+              <button className="w-full hover:bg-gray-600 px-3 py-2 rounded transition-colors duration-300 text-center">
+                <Link to="/blog" onClick={toggleMenu}>
+                  Blog
+                </Link>
               </button>
             </li>
-            <li>
-              <button
-                onClick={() => {
-                  handleNavigation("projects");
-                  toggleMenu();
-                }}
-                className="hover:bg-gray-600 px-3 py-2 rounded transition-colors duration-300"
-              >
-                Projects
-              </button>
-            </li>
-            <li>
-              <button
-                onClick={() => {
-                  handleNavigation("contact");
-                  toggleMenu();
-                }}
-                className="hover:bg-gray-600 px-3 py-2 rounded transition-colors duration-300"
-              >
-                Contact
-              </button>
-            </li>
-            <li>
-              <Link
-                to="/blog"
-                className="hover:bg-gray-600 px-3 py-2 rounded transition-colors duration-300"
-                onClick={toggleMenu}
-              >
-                Blog
-              </Link>
-            </li>
-            <li>
+            <li className="w-full">
               {isAuthenticated ? (
                 <button
                   onClick={handleLogout}
-                  className="hover:bg-gray-600 px-3 py-2 rounded transition-colors duration-300"
+                  className="w-full hover:bg-gray-600 px-3 py-2 rounded transition-colors duration-300 text-center"
                 >
                   Logout
                 </button>
               ) : (
-                <Link
-                  to="/login"
-                  className="hover:bg-gray-600 px-3 py-2 rounded transition-colors duration-300"
-                >
-                  Login
-                </Link>
+                <button className="w-full hover:bg-gray-600 px-3 py-2 rounded transition-colors duration-300 text-center">
+                  <Link
+                    to="/login"
+                    className="w-full hover:bg-gray-600 px-3 py-2 rounded transition-colors duration-300 text-center"
+                  >
+                    Login
+                  </Link>
+                </button>
               )}
             </li>
           </ul>

@@ -3,6 +3,7 @@ import { Post } from "../types/Post";
 import { Link } from "react-router-dom";
 import Header from "./Header";
 import { useAuth } from "../contexts/AuthContext";
+import Footer from "./Footer";
 
 const Blog = () => {
   const [error, setError] = useState<string>("");
@@ -42,13 +43,11 @@ const Blog = () => {
   }, []);
 
   return (
-    <div className="min-h-screen bg-[#1a1a1a] text-white">
+    <div className="min-h-screen bg-[#1a1a1a] text-white ">
       <Header />
       <div className="max-w-7xl mx-auto py-12 px-6">
         {user && (
-          <h2 className="text-2xl font-semibold mb-4">
-            Hi, {user.username}
-          </h2>
+          <h2 className="text-2xl font-semibold mb-4">Hi, {user.username}</h2>
         )}
         <h2 className="text-4xl font-bold mb-8 text-center">Blog Posts</h2>
 
@@ -76,6 +75,7 @@ const Blog = () => {
           </div>
         )}
       </div>
+      <Footer />
     </div>
   );
 };
