@@ -5,6 +5,7 @@ import { Comment } from "../types/Comment";
 import { User } from "../types/User";
 import Header from "./Header";
 import { useAuth } from "../contexts/AuthContext";
+import CommentForm from "./CommentForm";
 
 const BlogPost: React.FC = () => {
   const [post, setPost] = useState<Post | undefined>(undefined);
@@ -14,7 +15,7 @@ const BlogPost: React.FC = () => {
   const [loadingPost, setLoadingPost] = useState<boolean>(true);
   const [loadingComments, setLoadingComments] = useState<boolean>(true);
   const { id } = useParams();
-  const { validateToken } = useAuth();
+  const { validateToken, isAuthenticated } = useAuth();
 
   useEffect(() => {
     validateToken();
@@ -150,12 +151,25 @@ const BlogPost: React.FC = () => {
                         <p className="text-gray-500 text-sm mt-2">
                           {new Date(comment.createdAt).toLocaleString()}
                         </p>
+                        {comment.createdAt !== comment.updatedAt && (
+                          <p className="text-gray-500 text-sm mt-2">
+                            Last Edited:{" "}
+                            {new Date(comment.updatedAt).toLocaleString()}
+                          </p>
+                        )}
                       </div>
                     );
                   })}
                 </div>
               )}
             </div>
+            {isAuthenticated ? (
+              <CommentForm comments={comments} setComments={setComments} />
+            ) : (
+              <p className="block text-lg mt-8">
+                Login to make a comment
+              </p>
+            )}
           </div>
         ) : (
           <p className="text-center">Post not found</p>
