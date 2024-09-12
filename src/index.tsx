@@ -7,6 +7,8 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import Blog from "./components/Blog";
 import BlogPost from "./components/BlogPost";
 import RegisterForm from "./components/RegisterForm";
+import LoginForm from "./components/LoginForm";
+import { AuthProvider } from "./contexts/AuthContext";
 
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement
@@ -29,11 +31,17 @@ const router = createBrowserRouter([
     path: "/register",
     element: <RegisterForm />,
   },
+  {
+    path: "/login",
+    element: <LoginForm />,
+  },
 ]);
 
 root.render(
   <React.StrictMode>
-    <RouterProvider router={router} />
+    <AuthProvider>
+      <RouterProvider router={router} />
+    </AuthProvider>
   </React.StrictMode>
 );
 
