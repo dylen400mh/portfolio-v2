@@ -8,7 +8,7 @@ const Blog = () => {
   const [error, setError] = useState<string>("");
   const [posts, setPosts] = useState<Post[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
-  const { validateToken } = useAuth();
+  const { validateToken, user } = useAuth();
 
   useEffect(() => {
     validateToken();
@@ -45,6 +45,11 @@ const Blog = () => {
     <div className="min-h-screen bg-[#1a1a1a] text-white">
       <Header />
       <div className="max-w-7xl mx-auto py-12 px-6">
+        {user && (
+          <h2 className="text-2xl font-semibold mb-4">
+            Hi, {user.username}
+          </h2>
+        )}
         <h2 className="text-4xl font-bold mb-8 text-center">Blog Posts</h2>
 
         {loading ? (

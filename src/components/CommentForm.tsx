@@ -1,6 +1,7 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { Comment } from "../types/Comment";
+import { useAuth } from "../contexts/AuthContext";
 
 interface CommentFormProps {
   comments: Comment[];
@@ -12,6 +13,7 @@ const CommentForm: React.FC<CommentFormProps> = ({ comments, setComments }) => {
   const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
   const [error, setError] = useState<string>("");
   const { id } = useParams();
+  const { user } = useAuth();
 
   const handleCommentSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -47,7 +49,7 @@ const CommentForm: React.FC<CommentFormProps> = ({ comments, setComments }) => {
     <div className="mt-8">
       <form onSubmit={handleCommentSubmit} className="space-y-4">
         <label htmlFor="newComment" className="block text-lg">
-          Add a comment
+          {`Add a comment as ${user?.username}`}
         </label>
         <textarea
           id="newComment"
@@ -64,6 +66,7 @@ const CommentForm: React.FC<CommentFormProps> = ({ comments, setComments }) => {
         >
           {isSubmitting ? "Posting..." : "Post Comment"}
         </button>
+        <p className="text-center text-red-500">{error}</p>
       </form>
     </div>
   );
