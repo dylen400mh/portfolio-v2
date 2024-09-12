@@ -166,9 +166,17 @@ const BlogPost: React.FC = () => {
             {isAuthenticated ? (
               <CommentForm comments={comments} setComments={setComments} />
             ) : (
-              <p className="block text-lg mt-8">
-                Login to make a comment
-              </p>
+              <div className="mt-6 text-center">
+                <p className="text-gray-400">
+                  <Link
+                    to="/login"
+                    className="text-blue-500 hover:text-blue-400 underline"
+                  >
+                    Login
+                  </Link>{" "}
+                  to make a comment
+                </p>
+              </div>
             )}
           </div>
         ) : (
