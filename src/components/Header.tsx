@@ -9,6 +9,11 @@ const Header: React.FC = () => {
   const location = useLocation();
   const { isAuthenticated, handleLogout } = useAuth();
 
+  const handleLogoutClick = () => {
+    handleLogout();
+    navigate("/");
+  };
+
   const handleScroll = (sectionId: string) => {
     const element = document.getElementById(sectionId);
     if (element) {
@@ -96,7 +101,7 @@ const Header: React.FC = () => {
           </Link>
           {isAuthenticated ? (
             <button
-              onClick={handleLogout}
+              onClick={handleLogoutClick}
               className="bg-blue-600 hover:bg-blue-500 px-3 py-2 rounded transition-colors duration-300"
             >
               Logout
@@ -154,7 +159,7 @@ const Header: React.FC = () => {
             <li className="w-full">
               {isAuthenticated ? (
                 <button
-                  onClick={handleLogout}
+                  onClick={handleLogoutClick}
                   className="w-full hover:bg-gray-600 px-3 py-2 rounded transition-colors duration-300 text-center"
                 >
                   Logout
