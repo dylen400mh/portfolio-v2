@@ -16,7 +16,7 @@ const BlogPost: React.FC = () => {
   const [loadingPost, setLoadingPost] = useState<boolean>(true);
   const [loadingComments, setLoadingComments] = useState<boolean>(true);
   const { id } = useParams();
-  const { validateToken, isAuthenticated } = useAuth();
+  const { validateToken, isAuthenticated, user } = useAuth();
 
   useEffect(() => {
     validateToken();
@@ -138,14 +138,18 @@ const BlogPost: React.FC = () => {
               ) : (
                 <div className="space-y-6">
                   {comments.map((comment) => {
-                    const user = users.find((u) => u.id === comment.userId);
+                    const commentUser = users.find(
+                      (u) => u.id === comment.userId
+                    );
+                    const canEditOrDelete =
+                      user?.username === commentUser?.username;
                     return (
                       <div
                         key={comment.id}
                         className="bg-gray-800 p-4 rounded-lg shadow-md"
                       >
                         <p className="text-lg font-semibold mb-2">
-                          {user && user.username}
+                          {commentUser && commentUser.username}
                         </p>
                         <p className="text-gray-300">{comment.content}</p>
                         <p className="text-gray-500 text-sm mt-2">
@@ -156,6 +160,23 @@ const BlogPost: React.FC = () => {
                             Last Edited:{" "}
                             {new Date(comment.updatedAt).toLocaleString()}
                           </p>
+                        )}
+                        {/* Edit and Delete buttons */}
+                        {canEditOrDelete && (
+                          <div className="mt-4 space-x-4">
+                            <button
+                              className="px-4 py-2 bg-yellow-500 text-white font-bold rounded-lg hover:bg-yellow-400 transition-colors"
+                              onClick={() => {}}
+                            >
+                              Edit
+                            </button>
+                            <button
+                              className="px-4 py-2 bg-red-600 text-white font-bold rounded-lg hover:bg-red-500 transition-colors"
+                              onClick={() => {}}
+                            >
+                              Delete
+                            </button>
+                          </div>
                         )}
                       </div>
                     );
