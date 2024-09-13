@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import { Link, useParams } from "react-router-dom";
 import { Post } from "../types/Post";
 import { Comment } from "../types/Comment";
@@ -100,6 +100,33 @@ const BlogPost: React.FC = () => {
     fetchPostAndComments();
   }, [id, validateToken]);
 
+  const handleDeleteComment = useCallback(async (id: number) => {
+    const token = localStorage.getItem("token");
+    try {
+      const response = await fetch(
+        `${process.env.REACT_APP_BASE_URL}/comments/${id}`,
+        {
+          method: "DELETE",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+
+      if (!response.ok) {
+        const data = await response.json();
+        setError(data.message);
+      } else {
+        setComments((prevComments) =>
+          prevComments.filter((comment) => comment.id !== id)
+        );
+      }
+    } catch (err: any) {
+      setError(err);
+    }
+  }, []);
+
   return (
     <div className="min-h-screen bg-[#1a1a1a] text-white">
       <Header />
@@ -165,14 +192,8 @@ const BlogPost: React.FC = () => {
                         {canEditOrDelete && (
                           <div className="mt-4 space-x-4">
                             <button
-                              className="px-4 py-2 bg-yellow-500 text-white font-bold rounded-lg hover:bg-yellow-400 transition-colors"
-                              onClick={() => {}}
-                            >
-                              Edit
-                            </button>
-                            <button
                               className="px-4 py-2 bg-red-600 text-white font-bold rounded-lg hover:bg-red-500 transition-colors"
-                              onClick={() => {}}
+                              onClick={() => handleDeleteComment(comment.id)}
                             >
                               Delete
                             </button>
