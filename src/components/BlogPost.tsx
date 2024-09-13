@@ -15,6 +15,9 @@ const BlogPost: React.FC = () => {
   const [error, setError] = useState<string>("");
   const [loadingPost, setLoadingPost] = useState<boolean>(true);
   const [loadingComments, setLoadingComments] = useState<boolean>(true);
+  const [editingComment, setEditingComment] = useState<Comment | undefined>(
+    undefined
+  );
   const { id } = useParams();
   const { validateToken, isAuthenticated, user } = useAuth();
 
@@ -130,6 +133,52 @@ const BlogPost: React.FC = () => {
     }
   }, []);
 
+  const handleEditComment = useCallback(
+    async (comment: Comment) => {
+      setEditingComment(comment);
+    },
+    [setEditingComment]
+  );
+
+  const handleCancelEdit = useCallback(() => {
+    setEditingComment(undefined);
+  }, [setEditingComment]);
+
+  const handleSubmitEdit = useCallback(
+    async (id: number) => {
+      const token = localStorage.getItem("token");
+      try {
+        const response = await fetch(
+          `${process.env.REACT_APP_BASE_URL}/comments/${id}`,
+          {
+            method: "PUT",
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${token}`,
+            },
+            body: JSON.stringify({ content: editingComment?.content }),
+          }
+        );
+        console.log(response);
+        if (response.ok) {
+          const { updatedComment } = await response.json();
+
+          setComments((prevComments) =>
+            prevComments.map((comment) =>
+              comment.id === id ? updatedComment : comment
+            )
+          );
+          handleCancelEdit();
+        } else {
+          throw new Error("Failed to update comment");
+        }
+      } catch (err) {
+        console.error(err);
+      }
+    },
+    [editingComment, handleCancelEdit]
+  );
+
   return (
     <div className="min-h-screen bg-[#1a1a1a] text-white">
       <Header />
@@ -181,7 +230,21 @@ const BlogPost: React.FC = () => {
                         <p className="text-lg font-semibold mb-2">
                           {commentUser && commentUser.username}
                         </p>
-                        <p className="text-gray-300">{comment.content}</p>
+                        {editingComment?.id === comment.id ? (
+                          <textarea
+                            value={editingComment.content}
+                            onChange={(e) =>
+                              setEditingComment({
+                                ...comment,
+                                content: e.target.value,
+                              })
+                            }
+                            className="w-full p-2 bg-gray-700 text-white rounded-lg"
+                          />
+                        ) : (
+                          <p className="text-gray-300">{comment.content}</p>
+                        )}
+
                         <p className="text-gray-500 text-sm mt-2">
                           {new Date(comment.createdAt).toLocaleString()}
                         </p>
@@ -191,15 +254,40 @@ const BlogPost: React.FC = () => {
                             {new Date(comment.updatedAt).toLocaleString()}
                           </p>
                         )}
-                        {/* Edit and Delete buttons */}
+
                         {canEditOrDelete && (
                           <div className="mt-4 space-x-4">
-                            <button
-                              className="px-4 py-2 bg-red-600 text-white font-bold rounded-lg hover:bg-red-500 transition-colors"
-                              onClick={() => handleDeleteComment(comment)}
-                            >
-                              Delete
-                            </button>
+                            {editingComment?.id === comment.id ? (
+                              <>
+                                <button
+                                  className="px-4 py-2 bg-green-600 text-white font-bold rounded-lg hover:bg-green-500 transition-colors"
+                                  onClick={() => handleSubmitEdit(comment.id)}
+                                >
+                                  Submit
+                                </button>
+                                <button
+                                  className="px-4 py-2 bg-gray-600 text-white font-bold rounded-lg hover:bg-gray-500 transition-colors"
+                                  onClick={handleCancelEdit}
+                                >
+                                  Cancel
+                                </button>
+                              </>
+                            ) : (
+                              <>
+                                <button
+                                  className="px-4 py-2 bg-yellow-500 text-white font-bold rounded-lg hover:bg-yellow-400 transition-colors"
+                                  onClick={() => handleEditComment(comment)}
+                                >
+                                  Edit
+                                </button>
+                                <button
+                                  className="px-4 py-2 bg-red-600 text-white font-bold rounded-lg hover:bg-red-500 transition-colors"
+                                  onClick={() => handleDeleteComment(comment)}
+                                >
+                                  Delete
+                                </button>
+                              </>
+                            )}
                           </div>
                         )}
                       </div>

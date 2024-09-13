@@ -58,7 +58,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
       return token;
     }
   }, [handleLogin, handleLogout]);
-  console.log(user);
+
   return (
     <AuthContext.Provider
       value={{
