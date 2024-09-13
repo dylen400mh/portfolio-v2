@@ -17,7 +17,13 @@ function App() {
       const sectionId = location.state.sectionId;
       const element = document.getElementById(sectionId);
       if (element) {
-        element.scrollIntoView({ behavior: "smooth" });
+        const elementPosition =
+          element.getBoundingClientRect().top + window.scrollY;
+
+        window.scrollTo({
+          top: elementPosition - 500,
+          behavior: "smooth",
+        });
       }
     }
   }, [location]);
