@@ -98,7 +98,7 @@ const BlogPost: React.FC = () => {
     };
 
     fetchPostAndComments();
-  }, [id]);
+  }, [id, validateToken]);
 
   return (
     <div className="min-h-screen bg-[#1a1a1a] text-white">

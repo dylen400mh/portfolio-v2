@@ -26,7 +26,7 @@ function App() {
         });
       }
     }
-  }, [location]);
+  }, [location, validateToken]);
 
   return (
     <div className="App">

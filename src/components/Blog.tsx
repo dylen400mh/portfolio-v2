@@ -40,7 +40,7 @@ const Blog = () => {
     };
 
     fetchPosts();
-  }, []);
+  }, [validateToken]);
 
   return (
     <div className="min-h-screen bg-[#1a1a1a] text-white">
