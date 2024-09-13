@@ -2,13 +2,21 @@ import React, { useState } from "react";
 import { useParams } from "react-router-dom";
 import { Comment } from "../types/Comment";
 import { useAuth } from "../contexts/AuthContext";
+import { User } from "../types/User";
 
 interface CommentFormProps {
   comments: Comment[];
   setComments: (comments: Comment[]) => void;
+  users: User[];
+  setUsers: (users: User[]) => void;
 }
 
-const CommentForm: React.FC<CommentFormProps> = ({ comments, setComments }) => {
+const CommentForm: React.FC<CommentFormProps> = ({
+  comments,
+  setComments,
+  users,
+  setUsers,
+}) => {
   const [newComment, setNewComment] = useState<string>("");
   const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
   const [error, setError] = useState<string>("");
@@ -35,6 +43,9 @@ const CommentForm: React.FC<CommentFormProps> = ({ comments, setComments }) => {
       if (response.ok) {
         const data = await response.json();
         setComments([...comments, data.comment]);
+        if (user) {
+          setUsers([...users, user]);
+        }
         setNewComment("");
       } else {
         setError("Failed to post comment. Please try again.");

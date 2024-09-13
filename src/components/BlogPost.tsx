@@ -100,11 +100,11 @@ const BlogPost: React.FC = () => {
     fetchPostAndComments();
   }, [id, validateToken]);
 
-  const handleDeleteComment = useCallback(async (id: number) => {
+  const handleDeleteComment = useCallback(async (comment: Comment) => {
     const token = localStorage.getItem("token");
     try {
       const response = await fetch(
-        `${process.env.REACT_APP_BASE_URL}/comments/${id}`,
+        `${process.env.REACT_APP_BASE_URL}/comments/${comment.id}`,
         {
           method: "DELETE",
           headers: {
@@ -119,7 +119,10 @@ const BlogPost: React.FC = () => {
         setError(data.message);
       } else {
         setComments((prevComments) =>
-          prevComments.filter((comment) => comment.id !== id)
+          prevComments.filter((prevComment) => prevComment.id !== comment.id)
+        );
+        setUsers((prevUsers) =>
+          prevUsers.filter((user) => user.id !== comment.userId)
         );
       }
     } catch (err: any) {
@@ -193,7 +196,7 @@ const BlogPost: React.FC = () => {
                           <div className="mt-4 space-x-4">
                             <button
                               className="px-4 py-2 bg-red-600 text-white font-bold rounded-lg hover:bg-red-500 transition-colors"
-                              onClick={() => handleDeleteComment(comment.id)}
+                              onClick={() => handleDeleteComment(comment)}
                             >
                               Delete
                             </button>
@@ -206,7 +209,12 @@ const BlogPost: React.FC = () => {
               )}
             </div>
             {isAuthenticated ? (
-              <CommentForm comments={comments} setComments={setComments} />
+              <CommentForm
+                comments={comments}
+                setComments={setComments}
+                users={users}
+                setUsers={setUsers}
+              />
             ) : (
               <div className="mt-6 text-center">
                 <p className="text-gray-400">
