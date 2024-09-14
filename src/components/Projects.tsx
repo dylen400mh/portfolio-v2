@@ -7,9 +7,21 @@ import memoryCardImg from "../images/memory-card.jpg";
 import battleshipImg from "../images/battleship.png";
 import todoListImg from "../images/todo-list.png";
 import weatherAppImg from "../images/weather-app.png";
+import blogImg from "../images/blog.png";
 
 // Array of project objects
 const projects = [
+  {
+    title: "Blog Website/API",
+    technologies:
+      "Node.js, Express.js, PostgreSQL(Prisma), React, Typescript, Tailwind",
+    image: blogImg,
+    alt: "Image of blog admin website",
+    codeLink: "https://github.com/dylen400mh/blog-api",
+    demoLink: "https://www.youtube.com/watch?v=4OSidLXTCLw",
+    description:
+      "A full-stack blog application that provides a RESTful API for managing posts and comments, with a frontend for blog management and JWT-based route protection.",
+  },
   {
     title: "MyMindfulM8",
     technologies: "React, Python, Flask, SQL",
