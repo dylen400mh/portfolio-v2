@@ -204,7 +204,9 @@ const BlogPost: React.FC = () => {
               <p className="text-gray-400 mb-4">
                 Last Edited: {new Date(post.updatedAt).toLocaleString()}
               </p>
-              <div className="text-lg mb-6">{post.content}</div>
+              <div className="text-lg mb-6 whitespace-pre-wrap">
+                {post.content}
+              </div>
             </div>
 
             {/* Comments Section */}
@@ -242,7 +244,9 @@ const BlogPost: React.FC = () => {
                             className="w-full p-2 bg-gray-700 text-white rounded-lg"
                           />
                         ) : (
-                          <p className="text-gray-300">{comment.content}</p>
+                          <p className="text-gray-300 whitespace-pre-wrap">
+                            {comment.content}
+                          </p>
                         )}
 
                         <p className="text-gray-500 text-sm mt-2">
