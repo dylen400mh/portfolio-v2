@@ -53,7 +53,7 @@ const Header: React.FC = () => {
         </div>
 
         {/* Hamburger Icon for Mobile View */}
-        <div className="md:hidden">
+        <div className="lg:hidden">
           <button onClick={toggleMenu} className="focus:outline-none relative">
             {/* Animated Hamburger Menu */}
             <div
@@ -75,7 +75,7 @@ const Header: React.FC = () => {
         </div>
 
         {/* Desktop Menu */}
-        <nav className="hidden md:flex space-x-8 text-lg font-semibold">
+        <nav className="hidden lg:flex space-x-8 text-lg font-semibold">
           {sections.map((section) => (
             <button
               key={section}
@@ -119,7 +119,7 @@ const Header: React.FC = () => {
 
       {/* Mobile Menu with Dropdown Animation */}
       <div
-        className={`md:hidden overflow-hidden transition-all duration-500 ease-in-out ${
+        className={`lg:hidden overflow-hidden transition-all duration-500 ease-in-out ${
           isOpen ? "max-h-screen opacity-100" : "max-h-0 opacity-0"
         }`}
       >
