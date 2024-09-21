@@ -14,6 +14,8 @@ const technologies = [
   { icon: "devicon-css3-plain colored", label: "CSS" },
   { icon: "devicon-html5-plain colored", label: "HTML" },
   { icon: "devicon-git-plain colored", label: "Git" },
+  { icon: 'devicon-opencv-plain colored', label: 'OpenCV'},
+  { icon: 'devicon-tensorflow-original colored', label: 'TensorFlow'},
   { icon: "devicon-csharp-plain colored", label: "C#" },
   { icon: "devicon-flask-original", label: "Flask" },
   { icon: "devicon-jest-plain colored", label: "Jest" },

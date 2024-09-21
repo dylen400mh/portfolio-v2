@@ -1,5 +1,3 @@
-import React from "react";
-
 // Importing the images
 import myMindfulM8Img from "../images/mymindfulm8.jpg";
 import yourEssentialsImg from "../images/youressentials.png";
@@ -8,9 +6,20 @@ import battleshipImg from "../images/battleship.png";
 import todoListImg from "../images/todo-list.png";
 import weatherAppImg from "../images/weather-app.png";
 import blogImg from "../images/blog.png";
+import sltImg from "../images/sign-language-translator.png";
 
 // Array of project objects
 const projects = [
+  {
+    title: "Sign Language Translator",
+    technologies: "Python, OpenCV, TensorFlow, MediaPipe",
+    image: sltImg,
+    alt: "Image of sign language translator",
+    codeLink: "https://github.com/dylen400mh/sign-language-translator",
+    demoLink: "https://www.youtube.com/watch?v=pspCDx4ifFk",
+    description:
+      "A real-time sign language recognition system that detects 29 gestures using hand tracking and gesture analysis, achieving 98% accuracy.",
+  },
   {
     title: "Blog Website/API",
     technologies:
