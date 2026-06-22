@@ -1,3 +1,3 @@
 # Portfolio
 
-[Click here to view my portfolio!](https://dylenbelanger.com)
+This portfolio is not outdated. [This is my new one!]([https://dylenbelanger.com](https://github.com/dylen400mh/portfolio-v3))
